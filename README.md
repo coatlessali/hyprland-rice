@@ -2,6 +2,7 @@
 Dependencies:
 - Hyprland
 - Waybar
+- hyprpaper
 - grim
 - slurp
 - kitty
