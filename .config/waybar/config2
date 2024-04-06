@@ -1,11 +1,29 @@
 {
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "layer": "top",
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 32, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
-    "modules-center": ["network", "cpu", "memory", "temperature"],
-    "modules-left": ["hyprland/workspaces"],
-    "modules-right": ["pulseaudio/slider", "pulseaudio", "tray", "clock"],
+    // Choose the order of the modules
+    "modules-center": ["cpu", "memory", "temperature"],
+    "modules-left": ["custom/media"],
+    "modules-right": ["wireplumber"],
+    // Modules configuration
+    // "sway/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "",
+    //         "2": "",
+    //         "3": "",
+    //         "4": "",
+    //         "5": "","
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+    // },
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -54,8 +72,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "[X]",
-            "deactivated": "[ ]"
+            "activated": "",
+            "deactivated": ""
         }
     },
     "tray": {
@@ -68,18 +86,18 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}% CPU",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% MEM"
     },
     "temperature": {
         // "thermal-zone": 2,
-        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp2_input",
         "critical-threshold": 90,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
+        // "format-critical": "{temperatureC}°C",
+        "format": "{temperatureC}°C",
         "format-icons": ["", "", ""]
     },
     "backlight": {
@@ -106,15 +124,14 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        // "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-wifi": "{signalStrength}% ",
-        "format-ethernet": "Connected",
+        "format-wifi": "{Connected ({signalStrength}%) ",
+        "format-ethernet": "Connected ",
         "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-linked": "Connected (No IP) ?",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
-    "pulseaudio": {
+    "wireplumber": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon}",
@@ -131,12 +148,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
-    },
-    "pulseaudio/slider": {
-        "min": 0,
-        "max": 100,
-        "orientation": "horizontal"
+        "on-click": "va11-popup & kitty -e pulsemixer"
     },
     "custom/waybar-media": {
         "return-type": "json",
@@ -145,5 +157,17 @@
         "on-scroll-up": "waybar-media.py previous",
         "on-scroll-down": "waybar-media.py next",
         "escape": true
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 32,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl stop",
+        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
     }
 }

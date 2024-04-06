@@ -1,11 +1,10 @@
 {
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "layer": "top",
+    "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 32, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
-    "modules-center": ["network", "cpu", "memory", "temperature"],
-    "modules-left": ["hyprland/workspaces"],
-    "modules-right": ["pulseaudio/slider", "pulseaudio", "tray", "clock"],
+    "modules-left": ["network", "tray"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["cpu", "memory", "temperature", "pulseaudio", "pulseaudio/slider", "clock"],
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -76,7 +75,7 @@
     },
     "temperature": {
         // "thermal-zone": 2,
-        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        // "hwmon-path": "/sys/class/hwmon/hwmon4/temp2_input",
         "critical-threshold": 90,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
@@ -107,7 +106,7 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         // "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-wifi": "{signalStrength}% ",
+        "format-wifi": "Connected ({signalStrength}%) ",
         "format-ethernet": "Connected",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
